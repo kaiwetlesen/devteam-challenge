@@ -14,7 +14,7 @@ func main() {
 	longestSentenceLen := 0
 
 	numPalindromes := 0
-	longestPalindrome := 0
+	longestPalindrome := ""
 
 	file, err := os.Open("input.txt")
 	if err != nil {
@@ -35,14 +35,14 @@ func main() {
 		if IsPalindrome(text) {
 			//fmt.Println(text + " is a palindrome!\n")
 			numPalindromes++
-			if len(text) > longestPalindrome {
-				longestPalindrome = len(text)
+			if len(text) > len(longestPalindrome) {
+				longestPalindrome = text
 			}
 		}
 	}
 	fmt.Printf("Longest sentence: \"%v\"\n\n", longestSentence)
 	fmt.Printf("Number of palindromes: %v\n\n", numPalindromes)
-	fmt.Printf("Longest palindrome: %v\n", longestPalindrome)
+	fmt.Printf("Longest palindrome: \"%v\"\n", longestPalindrome)
 
 }
 
