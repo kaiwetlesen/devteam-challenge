@@ -12,6 +12,10 @@ import (
 func main() {
 	longestSentence := ""
 	longestSentenceLen := 0
+
+	numPalindromes := 0
+	longestPalindrome := 0
+
 	file, err := os.Open("input.txt")
 	if err != nil {
 		log.Fatal(err)
@@ -28,18 +32,27 @@ func main() {
 			longestSentenceLen = len(text)
 		}
 		//fmt.Printf(strings.ToLower(text) + "\n")
-		IsPalindrome(text)
+		if IsPalindrome(text) {
+			//fmt.Println(text + " is a palindrome!\n")
+			numPalindromes++
+			if len(text) > longestPalindrome {
+				longestPalindrome = len(text)
+			}
+		}
 	}
-	fmt.Printf("Longest sentence: %v\n", longestSentence)
+	fmt.Printf("Longest sentence: \"%v\"\n\n", longestSentence)
+	fmt.Printf("Number of palindromes: %v\n\n", numPalindromes)
+	fmt.Printf("Longest palindrome: %v\n", longestPalindrome)
+
 }
 
 func IsPalindrome(sentence string) bool {
-	newSentence := strings.ToLower(sentence)
+	cleanSentence := strings.ToLower(sentence)
 	reg := regexp.MustCompile("[^a-z]+")
-	fmt.Printf(reg.ReplaceAllString(newSentence, "") + "\n")
-	//reverse := Reverse(sentence)
+	cleanestSentence := reg.ReplaceAllString(cleanSentence, "")
+	reverseSentence := Reverse(cleanestSentence)
 
-	return false
+	return reverseSentence == cleanestSentence
 }
 
 func Reverse(s string) string {
